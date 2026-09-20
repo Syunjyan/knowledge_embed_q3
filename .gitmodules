@@ -1,0 +1,3 @@
+[submodule "third_party/Transolver"]
+	path = third_party/Transolver
+	url = https://github.com/thuml/Transolver.git
