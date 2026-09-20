@@ -95,7 +95,3 @@ physics-embed-evaluate \
 pytest
 python -m compileall -q embed src scripts tests
 ```
-
-## 结果解释
-
-本仓库是研究代码，不是通用数值求解器。物理残差是否有效取决于方程、边界条件、量纲、坐标顺序以及训练数据所采用的离散方式。`C`、`D`、`POS` 和 `CONS` 等分组属于实验性对照，不能脱离具体数据与复现实验直接视为性能改进。详细范围见 `docs/VALIDATION_SCOPE.md`。
