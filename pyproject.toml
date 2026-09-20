@@ -15,7 +15,7 @@ dependencies = [
 
 [project.optional-dependencies]
 viz = ["matplotlib>=3.7"]
-transolver = [
+experiments = [
   "einops>=0.7",
   "h5py>=3.9",
   "huggingface-hub>=0.24",

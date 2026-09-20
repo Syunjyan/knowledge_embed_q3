@@ -1,15 +1,12 @@
 # Physics Knowledge Embedding
 
-面向 PINN 与算子网络的物理领域知识嵌入研究代码。仓库包含两条相互独立的实验路径：
-
-1. `src/physics_embed`：二维 PDE 制造解、基础 PINN、边界条件、对称性、守恒关系和降阶模型约束；
-2. `scripts/official`：基于 Transolver 主干的 Darcy、Elasticity、Navier–Stokes 和 Plasticity 实验入口。
+面向物理场智能建模的领域知识嵌入研究代码。仓库包含数据准备、模型训练、知识约束、实验调度和结果评估等功能，支持热传导、流体、固体力学等典型物理场景。
 
 数据集、模型权重、运行日志和报告材料不进入仓库。
 
 ## 方法范围
 
-代码覆盖“数据与任务定义—模型初始化—训练约束—预测校验”四个环节中的可复用组件，包括：
+代码围绕“数据与任务定义—模型初始化—训练约束—预测校验”四个环节组织，主要包括：
 
 - PDE 与本构残差；
 - 软/硬边界条件；
@@ -27,19 +24,16 @@ git clone --recurse-submodules https://github.com/Syunjyan/knowledge_embed_q3.gi
 cd knowledge_embed_q3
 python -m venv .venv
 source .venv/bin/activate
-pip install -e ".[dev,viz,transolver]"
+pip install -e ".[dev,viz,experiments]"
 ```
 
-如果仓库已克隆但未拉取 Transolver：
+如果仓库已克隆但未拉取外部依赖：
 
 ```bash
 git submodule update --init --recursive
 ```
 
-Transolver 作为上游 Git 子模块引用，本仓库不复制其源码。上游项目：
-https://github.com/thuml/Transolver
-
-## Transolver 实验
+## 实验运行
 
 下载公开基准数据：
 
@@ -47,7 +41,7 @@ https://github.com/thuml/Transolver
 python scripts/download_official.py
 ```
 
-运行一个最小 Darcy 数据基线：
+运行一个最小示例：
 
 ```bash
 python scripts/official/exp_darcy.py \
@@ -58,19 +52,9 @@ python scripts/official/exp_darcy.py \
   --ckpt_dir ./runs/darcy_A
 ```
 
-主要实验分组：
-
-- `A`：数据监督基线；
-- `C` / `D`：固定或分阶段加入物理残差；
-- `HARD`：将零 Dirichlet 边界作为输出结构；
-- `MATCH`：匹配标签与预测的离散残差；
-- `DYN`：动态限制物理损失权重；
-- `S100*`：稀疏训练样本设置；
-- `POS` / `CONS`：材料或守恒关系的探索性约束。
-
 `scripts/run_official_seq.sh` 和 `scripts/run_phase2.sh` 提供顺序运行示例，所有路径均可通过环境变量覆盖。
 
-## PINN 工具
+## 数据与训练工具
 
 ```bash
 physics-embed-data \
